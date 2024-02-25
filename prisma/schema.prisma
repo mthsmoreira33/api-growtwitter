@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TweetType {
+  TWEET
+  RETWEET
+}
+
+model Tweet {
+  id        String    @id @default(uuid()) @db.Uuid
+  content   String    @db.VarChar(200)
+  tweetType TweetType @map("tweet_type")
+  likes     Like[]
+  retweets  Retweet[]
+
+  @@map("twitters")
+}
+
+model User {
+  id        String     @id @default(uuid()) @db.Uuid
+  name      String     @db.VarChar(100)
+  email     String     @db.VarChar(100)
+  username  String     @db.VarChar(50)
+  password  String     @db.VarChar(50)
+  likes     Like[]
+  retweets  Retweet[]
+  followers Follower[]
+
+  @@map("users")
+}
+
+model Follower {
+  followerId String @id @default(uuid()) @db.Uuid
+  user       User   @relation(fields: [followerId], references: [id])
+
+  @@map("followers")
+}
+
+model Retweet {
+  id      String @id @default(uuid()) @db.Uuid
+  userId  String @map("user_id") @db.Uuid
+  tweetId String @map("tweet_id") @db.Uuid
+
+  user  User  @relation(fields: [userId], references: [id])
+  tweet Tweet @relation(fields: [tweetId], references: [id])
+
+  @@map("retweets")
+}
+
+model Like {
+  id      String @id @default(uuid()) @db.Uuid
+  userId  String @map("user_id") @db.Uuid
+  tweetId String @map("tweet_id") @db.Uuid
+
+  user  User  @relation(fields: [userId], references: [id])
+  tweet Tweet @relation(fields: [tweetId], references: [id])
+
+  @@map("likes")
+}
