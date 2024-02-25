@@ -42,8 +42,9 @@ model User {
 }
 
 model Follower {
-  followerId String @id @default(uuid()) @db.Uuid
-  user       User   @relation(fields: [followerId], references: [id])
+  id String @id @default(uuid()) @db.Uuid
+  userId String @db.Uuid
+  user       User   @relation(fields: [userId], references: [id])
 
   @@map("followers")
 }

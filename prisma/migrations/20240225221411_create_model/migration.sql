@@ -23,9 +23,10 @@ CREATE TABLE "users" (
 
 -- CreateTable
 CREATE TABLE "followers" (
-    "followerId" UUID NOT NULL,
+    "id" UUID NOT NULL,
+    "userId" UUID NOT NULL,
 
-    CONSTRAINT "followers_pkey" PRIMARY KEY ("followerId")
+    CONSTRAINT "followers_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -47,7 +48,7 @@ CREATE TABLE "likes" (
 );
 
 -- AddForeignKey
-ALTER TABLE "followers" ADD CONSTRAINT "followers_followerId_fkey" FOREIGN KEY ("followerId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "followers" ADD CONSTRAINT "followers_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "retweets" ADD CONSTRAINT "retweets_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

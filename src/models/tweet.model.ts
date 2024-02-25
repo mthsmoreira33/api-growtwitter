@@ -1,0 +1,26 @@
+import { randomUUID } from "crypto";
+import { TweetType } from "../types/tweetType";
+
+export class Tweet {
+    private _id: string;
+
+    constructor(
+        private _content: string,
+        protected _tweetType: TweetType
+    ) {
+        this._id = randomUUID();
+        this._tweetType = 'Tweet'
+    }
+
+    get id(): string {
+        return this._id;
+    }
+
+    get content(): string {
+        return this._content;
+    }
+
+    get tweetType(): TweetType {
+        return this._tweetType;
+    }
+}
