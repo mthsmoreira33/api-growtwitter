@@ -22,8 +22,11 @@ model Tweet {
   id        String    @id @default(uuid()) @db.Uuid
   content   String    @db.VarChar(200)
   tweetType TweetType @map("tweet_type")
+  userId    String    @db.Uuid
   likes     Like[]
   retweets  Retweet[]
+
+  user User @relation(fields: [userId], references: [id])
 
   @@map("twitters")
 }
@@ -34,6 +37,7 @@ model User {
   email     String     @db.VarChar(100)
   username  String     @db.VarChar(50)
   password  String     @db.VarChar(50)
+  tweets    Tweet[]
   likes     Like[]
   retweets  Retweet[]
   followers Follower[]

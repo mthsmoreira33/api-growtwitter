@@ -6,6 +6,7 @@ CREATE TABLE "twitters" (
     "id" UUID NOT NULL,
     "content" VARCHAR(200) NOT NULL,
     "tweet_type" "TweetType" NOT NULL,
+    "userId" UUID NOT NULL,
 
     CONSTRAINT "twitters_pkey" PRIMARY KEY ("id")
 );
@@ -46,6 +47,9 @@ CREATE TABLE "likes" (
 
     CONSTRAINT "likes_pkey" PRIMARY KEY ("id")
 );
+
+-- AddForeignKey
+ALTER TABLE "twitters" ADD CONSTRAINT "twitters_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "followers" ADD CONSTRAINT "followers_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

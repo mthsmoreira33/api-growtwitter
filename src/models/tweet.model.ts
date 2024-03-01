@@ -6,7 +6,8 @@ export class Tweet {
 
     constructor(
         private _content: string,
-        protected _tweetType: TweetType
+        protected _tweetType: TweetType,
+        private _userId: string
     ) {
         this._id = randomUUID();
         this._tweetType = 'Tweet'
