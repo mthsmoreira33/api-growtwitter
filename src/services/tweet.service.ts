@@ -11,7 +11,7 @@ export class TweetService {
     return {
       success: true,
       code: 200,
-      message: "Usuários listados.",
+      message: "Tweets listados.",
       data: tweets,
     };
   }
@@ -46,7 +46,7 @@ export class TweetService {
     return {
       success: true,
       code: 200,
-      message: "Usuário encontrado com sucesso.",
+      message: "Tweet encontrado com sucesso.",
       data: tweet,
     };
   }
