@@ -31,15 +31,15 @@ export class TweetService {
       success: true,
       code: 201,
       message: "Tweet criado com sucesso.",
-      data: createdTweet,
+      data: createdTweet
     };
   }
-  public async findById(id: string): Promise<ResponseDTO> {
+  public async findById(id: string, userId: string): Promise<ResponseDTO> {
     const tweet = await repository.tweet.findUnique({
-      where: { id },
+      where: { id, userId }
     });
 
-    if (!tweet) {
+    if (!tweet || !userId) {
       throw new Error("Tweet não encontrado");
     }
 
@@ -59,13 +59,14 @@ export class TweetService {
       where: { id: tweetDTO.id, userId },
     });
 
-    if (!tweet) {
+    if (!tweet || !userId) {
       throw new Error("Tweet não encontrado");
     }
 
     const updatedTweet = await repository.tweet.update({
       where: {
         id: tweetDTO.id,
+        userId: tweetDTO.userId
       },
       data: {
         content: tweetDTO.content,
@@ -81,17 +82,17 @@ export class TweetService {
     };
   }
 
-  public async delete(id: string): Promise<ResponseDTO> {
+  public async delete(id: string, userId: string): Promise<ResponseDTO> {
     const tweet = await repository.tweet.findUnique({
-      where: { id },
+      where: { id, userId },
     });
 
-    if (!tweet) {
+    if (!tweet || !userId) {
       throw new Error("Tweet não encontrado");
     }
 
     const deletedTweet = await repository.tweet.delete({
-      where: { id },
+      where: { id, userId },
     });
 
     return {

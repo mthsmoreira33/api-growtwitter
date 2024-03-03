@@ -4,48 +4,73 @@ import { CreateLikesDTO } from "../dtos/likes.dto";
 import { Like } from "../models/like.model";
 
 export class LikeService {
-    public async create(likeDTO: CreateLikesDTO): Promise<ResponseDTO> {
-        const newLike = new Like(
-            likeDTO.tweetId,
-            likeDTO.userId
-        )
+  public async findAll(): Promise<ResponseDTO> {
+    const likes = await repository.like.findMany();
 
-        const createdLike = await repository.like.create({
-            data: {
-                userId: newLike.userId,
-                tweetId: newLike.tweetId
-            }
-        })
+    return {
+      success: true,
+      code: 200,
+      message: "Retweets listados.",
+      data: likes,
+    };
+  }
 
-        return {
-            success: true,
-            code: 201,
-            message: 'Like criado com sucesso',
-            data: createdLike
-        }
+  public async findById(id: string, userId: string, tweetId: string): Promise<ResponseDTO> {
+    const like = await repository.like.findUnique({
+      where: { id, userId, tweetId },
+    });
+
+    if (!like || !userId || !tweetId) {
+      throw new Error("Like não encontrado");
     }
 
-    public async delete(id: string): Promise<ResponseDTO> {
-        const like = await repository.like.findUnique({
-            where: { id }
-        })
+    return {
+      success: true,
+      code: 200,
+      message: "Like encontrado com sucesso.",
+      data: like,
+    };
+  }
 
-        if (!like) {
-            throw new Error('Like não encontrado')
-        }
+  public async create(likeDTO: CreateLikesDTO): Promise<ResponseDTO> {
+    const newLike = new Like(likeDTO.tweetId, likeDTO.userId);
 
-        const deletedLike = await repository.like.delete({
-            where: {
-                id
-            }
-        })
+    const createdLike = await repository.like.create({
+      data: {
+        userId: newLike.userId,
+        tweetId: newLike.tweetId,
+      },
+    });
 
-        return {
-            success: true,
-            code: 200,
-            message: 'Like removido com sucesso.',
-            data: deletedLike
-        }
+    return {
+      success: true,
+      code: 201,
+      message: "Like criado com sucesso",
+      data: createdLike,
+    };
+  }
+
+  public async delete(id: string, userId: string, tweetId: string): Promise<ResponseDTO> {
+    const like = await repository.like.findUnique({
+      where: { id, userId, tweetId },
+    });
+
+    if (!like) {
+      throw new Error("Like não encontrado");
     }
+
+    const deletedLike = await repository.like.delete({
+      where: {
+        id, userId, tweetId
+      },
+    });
+
+    return {
+      success: true,
+      code: 200,
+      message: "Like removido com sucesso.",
+      data: deletedLike,
+    };
+  }
 }
 

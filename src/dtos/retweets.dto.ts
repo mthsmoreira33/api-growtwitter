@@ -9,7 +9,7 @@ export interface CreateRetweetDTO {
 
 export interface UpdateRetweetDTO {
   id: string;
-  content?: string;
+  content: string;
   userId: string;
   tweetId: string
 }

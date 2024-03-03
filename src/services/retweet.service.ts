@@ -1,12 +1,12 @@
 import { repository } from "../db/prisma.connection";
 import { ResponseDTO } from "../dtos/response.dto";
-import { CreateRetweetDTO, UpdateRetweetDTO } from "../dtos/retweet.dto";
+import { CreateRetweetDTO, UpdateRetweetDTO } from "../dtos/retweets.dto";
 import { CreateTweetDTO, UpdateTweetDTO } from "../dtos/tweets.dto";
 import { Retweet } from "../models/retweet.model";
 import { Tweet } from "../models/tweet.model";
 import { TweetType } from "../types/tweetType";
 
-export class retweetService {
+export class RetweetService {
   public async findAll(): Promise<ResponseDTO> {
     const retweets = await repository.retweet.findMany();
 
@@ -36,9 +36,9 @@ export class retweetService {
       data: createdRetweet,
     };
   }
-  public async findById(id: string): Promise<ResponseDTO> {
-    const retweet = await repository.tweet.findUnique({
-      where: { id },
+  public async findById(id: string, userId: string, tweetId: string): Promise<ResponseDTO> {
+    const retweet = await repository.retweet.findUnique({
+      where: { id, userId, tweetId },
     });
 
     if (!retweet) {

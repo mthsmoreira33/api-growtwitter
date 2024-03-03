@@ -22,9 +22,29 @@ export class FollowerService {
     };
   }
 
-  public async delete(id: string): Promise<ResponseDTO> {
+  public async findById(
+    id: string,
+    userId: string
+  ): Promise<ResponseDTO> {
     const follower = await repository.follower.findUnique({
-      where: { id }
+      where: { id, userId },
+    });
+
+    if (!id || !userId ) {
+      throw new Error("Follower não encontrado");
+    }
+
+    return {
+      success: true,
+      code: 200,
+      message: "Follower encontrado com sucesso.",
+      data: follower,
+    };
+  }
+
+  public async delete(id: string, userId: string): Promise<ResponseDTO> {
+    const follower = await repository.follower.findUnique({
+      where: { id, userId },
     });
 
     if (!follower) {
@@ -33,8 +53,8 @@ export class FollowerService {
 
     const deletedFollower = await repository.follower.delete({
       where: {
-        id
-      }
+        id,
+      },
     });
 
     return {
