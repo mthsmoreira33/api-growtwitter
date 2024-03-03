@@ -55,6 +55,7 @@ model Follower {
 
 model Retweet {
   id      String @id @default(uuid()) @db.Uuid
+  content   String    @db.VarChar(200)
   userId  String @map("user_id") @db.Uuid
   tweetId String @map("tweet_id") @db.Uuid
 
