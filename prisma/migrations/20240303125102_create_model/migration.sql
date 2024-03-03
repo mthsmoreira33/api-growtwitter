@@ -33,6 +33,7 @@ CREATE TABLE "followers" (
 -- CreateTable
 CREATE TABLE "retweets" (
     "id" UUID NOT NULL,
+    "content" VARCHAR(200) NOT NULL,
     "user_id" UUID NOT NULL,
     "tweet_id" UUID NOT NULL,
 

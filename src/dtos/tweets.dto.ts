@@ -10,7 +10,6 @@ export interface UpdateTweetDTO
 {
     id: string
     content?: string
-    tweetType?: TweetType
     userId: string
 }
 

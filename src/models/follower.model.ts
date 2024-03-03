@@ -1,11 +1,9 @@
-import { randomUUID } from "crypto";
-
 export class Follower {
-    private _id: string;
-
+    id: any;
+  userId: any;
     constructor(
+        private _id: string,
         private _userId: string
     ) {
-        this._id = randomUUID();
     }
 }
