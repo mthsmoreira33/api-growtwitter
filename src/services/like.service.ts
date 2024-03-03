@@ -20,7 +20,7 @@ export class LikeService {
       where: { id, userId, tweetId },
     });
 
-    if (!like || !userId || !tweetId) {
+    if (!id || !userId || !tweetId) {
       throw new Error("Like não encontrado");
     }
 
