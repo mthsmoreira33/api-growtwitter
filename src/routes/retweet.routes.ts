@@ -1,15 +1,16 @@
 import express from "express";
 import { RetweetController } from "../controllers/retweets.controller";
 
-const router = express.Router();
+const retweetRouter = express.Router();
 
 const retweetController = new RetweetController();
 
-router.get("/retweets", retweetController.index);
+retweetRouter.get("/retweets", retweetController.index);
 
-router.post("retweets/:userId/:tweetId", retweetController.store);
+retweetRouter.post("retweets/:userId/:tweetId", retweetController.store);
 
-router.put("/retweets/:id/:userId/:tweetId", retweetController.update);
+retweetRouter.put("/retweets/:id/:userId/:tweetId", retweetController.update);
 
-router.delete("/retweets/:id/:userId/:tweetId", retweetController.delete);
+retweetRouter.delete("/retweets/:id/:userId/:tweetId", retweetController.delete);
 
+export default retweetRouter;

@@ -1,12 +1,15 @@
 import express from "express";
 import { FollowerController } from "../controllers/follower.controler";
+import retweetRouter from "./retweet.routes";
 
-const router = express.Router();
+const followerRouter = express.Router();
 
 const followerController = new FollowerController();
 
-router.get('/follower/:id/:userId', followerController.show);
+followerRouter.get('/follower/:id/:userId', followerController.show);
 
-router.post('/follower/:id/:userId', followerController.store);
+followerRouter.post('/follower/:id/:userId', followerController.store);
 
-router.delete('/follower/:id/:userId', followerController.delete);
+followerRouter.delete('/follower/:id/:userId', followerController.delete);
+
+export default followerRouter;

@@ -3,12 +3,14 @@ import { TweetController } from "../controllers/tweets.controller";
 
 const tweetController = new TweetController();
 
-const router = express.Router();
+const tweetRouter = express.Router();
 
-router.get("/tweets", tweetController.index);
+tweetRouter.get("/tweets", tweetController.index);
 
-router.post("/tweets", tweetController.store);
+tweetRouter.post("/tweets", tweetController.store);
 
-router.put("/tweets/:id/:userId", tweetController.update);
+tweetRouter.put("/tweets/:id/:userId", tweetController.update);
 
-router.delete("/tweets/:id/:userId", tweetController.delete);
+tweetRouter.delete("/tweets/:id/:userId", tweetController.delete);
+
+export default tweetRouter;

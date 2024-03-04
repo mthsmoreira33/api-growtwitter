@@ -5,7 +5,7 @@ import { FollowerController } from "../controllers/follower.controler";
 import { LikeController } from "../controllers/likes.controller";
 
 
-const router = express.Router();
+const userRouter = express.Router();
 
 const userController = new UserController();
 
@@ -14,13 +14,14 @@ const followerController = new FollowerController();
 
 const likeController = new LikeController();
 
-router.get('/user', userController.index);
+userRouter.get('/user', userController.index);
 
-router.post('/user', userController.store);
+userRouter.post('/user', userController.store);
 
-router.get('/user/:id', userController.show);
+userRouter.get('/user/:id', userController.show);
 
-router.put('/user/:id', userController.update);
+userRouter.put('/user/:id', userController.update);
 
-router.delete('/user/:id', userController.delete);
+userRouter.delete('/user/:id', userController.delete);
 
+export default userRouter;
