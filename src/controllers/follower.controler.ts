@@ -8,7 +8,7 @@ export class FollowerController {
 
   public async store(request: Request, response: Response) {
     try {
-      const { id, userId} = request.body;
+      const { id, userId} = request.params;
 
       if (!id || !userId) {
         return response.status(400).json({

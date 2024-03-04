@@ -8,7 +8,7 @@ export class LikeController {
 
   public async store(request: Request, response: Response) {
     try {
-      const { userId, tweetId } = request.body;
+      const { userId, tweetId } = request.params;
 
       if (!userId || !tweetId) {
         return response.status(400).json({
